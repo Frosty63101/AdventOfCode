@@ -6,12 +6,12 @@ with open ("3/input.txt", "r") as file:
 
 data = re.findall(r"mul\((\d{1,3}),(\d{1,3})\)", data)
 
-total = 0
+total1 = 0
 
 for i in data:
-    total += int(i[0]) * int(i[1])
+    total1 += int(i[0]) * int(i[1])
 
-print("part 1: " + str(total))
+print("part 1: " + str(total1))
 
 # part 2
 with open ("3/input.txt", "r") as file:
@@ -19,7 +19,7 @@ with open ("3/input.txt", "r") as file:
 
 data = re.findall(r"(mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\))", data)
 
-total = 0
+total2 = 0
 do = True
 
 for i in data:
@@ -28,9 +28,9 @@ for i in data:
     elif "don't()" in i[0]:
         do = False
     elif do:
-        total += int(i[1]) * int(i[2])
+        total2 += int(i[1]) * int(i[2])
 
-print("part 2: " + str(total))
+print("part 2: " + str(total2))
 
 # part 1 (non-regex)
 with open ("3/input.txt", "r") as file:
@@ -81,13 +81,20 @@ for i in data:
         s = ""
         n = "m"
 
-total = 0
+total3 = 0
 
 for i in li:
-    i = i[4:-1].split(",")
-    total += int(i[0]) * int(i[1])
+    i = i[4:-1]
+    k = ["", ""]
+    p = 0
+    for j in i:
+        if j == ",":
+            p += 1
+            continue
+        k[p] += j
+    total3 += int(k[0]) * int(k[1])
 
-print("part 1: " + str(total) + "(non-regex)")
+print("part 1: " + str(total3) + " (non-regex and without split)")
 
 # part 2 (non-regex)
 with open ("3/input.txt", "r") as file:
@@ -175,18 +182,28 @@ for i in data:
         s = ""
         n = "m"
 
-total = 0
+total4 = 0
 do = True
 
 for i in li:
     if i[0] == "m" and do:
-        i = i[4:-1].split(",")
-        total += int(i[0]) * int(i[1])
+        i = i[4:-1]
+        k = ["", ""]
+        p = 0
+        for j in i:
+            if j == ",":
+                p += 1
+                continue
+            k[p] += j
+        total4 += int(k[0]) * int(k[1])
     if i[0] == "d":
         if i[2] == "n":
             do = False
         else:
             do = True
-        total += 0
+        total4 += 0
 
-print("part 2: " + str(total) + "(non-regex)")
+print("part 2: " + str(total4) + " (non-regex and without split)")
+
+print("part 1: ", "test success" if total1 == total3 else "test fail")
+print("part 2: ", "test success" if total2 == total4 else "test fail")
