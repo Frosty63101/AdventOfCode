@@ -3,7 +3,6 @@ import re
 with open ("3/input.txt", "r") as file:
     data = file.read()
 
-# find all mul(a,b) in the data where a and b are integers with 1-3 digits
 data = re.findall(r"mul\((\d{1,3}),(\d{1,3})\)", data)
 
 total = 0
